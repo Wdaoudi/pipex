@@ -1,3 +1,6 @@
+SRC = src/pathing.c src/pipex.c src/check.c  src/utils.c \
+	src/parsing.c \
+
 NAME = pipex
 
 LIBFT_DIR = libft
@@ -5,7 +8,6 @@ SRC_DIR = src
 LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -Wall -Wextra -Werror -g3
 CC = cc
-SRC = main.c ft_path.c ft_secure.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = -I$(LIBFT_DIR) -I$(SRC_DIR)
 

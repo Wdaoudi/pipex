@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:42:06 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/30 17:45:30 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:59:26 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 // fork
 
-// int	main(void)
-// {
-// 	pid_t pid = fork();
-// 	if (pid < 0)
-// 	{
-// 		printf("erreur lors du fork\n");
-// 		return (1);
-// 	}
-// 	if (pid == 0)
-// 	{
-// 		printf("jr suis l enfant avec l ID: %d\n", pid);
-// 	}
-// 	else
-// 		printf("je suis le parent avce l ID: %d\n", pid);
-// 	return (0);
-// }
+int	main(void)
+{
+	pid_t pid = fork();
+	if (pid < 0)
+	{
+		printf("erreur lors du fork\n");
+		return (1);
+	}
+	if (pid == 0)
+	{
+		printf("jr suis l enfant avec l ID: %d\n", pid);
+	}
+	else
+		printf("je suis le parent avce l ID: %d\n", pid);
+	return (0);
+}
 
 // int	main(void)
 // {
@@ -202,3 +202,51 @@
 // 	}
 // 	return (0);
 // }
+
+
+// int main()
+// {
+// 	int fd;
+
+// 	fd = open("example.txt", O_WRONLY | O_CREAT, 0644);
+// 	dup2(fd, STDOUT_FILENO);
+// 	close(fd);
+// 	printf("This is printed in example.txt!\n");
+
+// 	return (0);
+// }
+
+// int main()
+// {
+// 	char *args[3];
+
+// 	args[0] = "ls";
+// 	args[1] = "-l";
+// 	args[2] = NULL;
+// 	execve("/bin/ls", args, NULL);
+// 	printf("This line will not be executed.\n");
+
+// 	return (0);
+// }
+
+
+// int main()
+// {
+// 	if (access("example.txt", R_OK) != -1)
+// 		printf("I have permission\n");
+// 	else
+// 		printf("I don't have permission\n");
+
+// 	return (0);
+// }
+
+// int main()
+// {
+// 	if (unlink("example.txt") == 0)
+// 		printf("File successfully deleted");
+// 	else
+// 		printf("Error deleting file");
+
+// 	return (0);
+// }
+

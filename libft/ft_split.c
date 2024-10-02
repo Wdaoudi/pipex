@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:58:36 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/06/05 16:57:50 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:09:53 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*ft_free(char **str, int count)
 	return (NULL);
 }
 
-char	**slip(char const *s, char c, char **str)
+char	**sous_split(char const *s, char c, char **str)
 {
 	size_t	i;
 	size_t	j;
@@ -93,7 +93,7 @@ char	**ft_split(char const *s, char c)
 	str = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (str == NULL)
 		return (str);
-	return (slip(s, c, str));
+	return (sous_split(s, c, str));
 }
 
 // int	main(void)
