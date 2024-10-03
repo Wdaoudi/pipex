@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/02 19:43:55 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:45:39 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,35 @@
 typedef struct s_data
 {
 	char	**av;
+	char	**env;
+	int		ac;
+	char	**path;
 	int		cmd_count;
-	pid_t	pid;
-
+	pid_t	*pid;
+	int		error;
+	int		fd_in;
+	int		fd_out;
 }			t_data;
 
 // pathing
 
-char		**find_path(char **env);
-char		*get_path_var(char **env);
+char		**find_path(t_data *data);
+char		*get_path_var(t_data *data);
 char		*add_slash(char *path);
 char		**add_slash_to_paths(char **paths);
 
 // parsing + check
 
-char		*have_access(char **path, char *cmd);
-void		looking_using(char **path, char **cmd, char **env);
-char		**parsing_cmd(char **av);
+void		init_data(t_data *data, int ac, char **av, char **env);
+void		opening_file(t_data *data);
+char		*have_access(t_data *data, char *cmd);
+int		looking_using(t_data *data, char **cmd, int i);
+char		**parsing_cmd(t_data data, int i);
+void	path_not_found(char **cmd);
 
 // utils
 
 void		free_array(char **arr);
-void		free_end(char **arr1, char **arr2);
+void		free_end(t_data *data);
 
 #endif
