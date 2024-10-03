@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 18:55:28 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:03:55 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int	main(int ac, char **av, char **env)
 		free_array(cmd);
 		i++;
 	}
-	free_end(&data);
-	return (0);
+	return (waiting(&data));
+	// waitpid(data.pid, &status, 0);
+	// if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
+	// 	return (1);
+	// free_end(&data);
+	// return (0);
 }

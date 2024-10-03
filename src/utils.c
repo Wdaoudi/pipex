@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 16:27:30 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:04:34 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,21 @@ void	free_end(t_data *data)
 		close(data->fd_in);
 	if (data->fd_out != -1)
 		close(data->fd_out);
-
 	// if (data->pid)
 	// 	free(data->pid);
+}
+
+int	waiting(t_data *data)
+{
+	int i;
+	int status;
+	i = 0;
+	status = 0;
+	while (i < data->cmd_count)
+	{
+		waitpid(data->pid[i], &status, 0);
+		i++;
+	}
+	free_end(data);
+	return (status);
 }

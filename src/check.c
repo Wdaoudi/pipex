@@ -6,38 +6,61 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 18:45:29 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:20:34 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
+int	ft_dup2(int fd)
+{
+	//dup2(fd)
+	//close(fd)
+}
+
+int	redirect(t_data *data, int i)
+{
+	if (i == 2) // premiere cmd
+	{
+		// open et ft_dup2 infile en entree
+		// close pipe[0] suivant
+		// open et ft_dup2 pipe[1] suivant en sortie
+	}
+	else if (i == data->ac - 2) // derniere cmd
+	{
+		// close pipe[1] precedent
+		// open et ft_dup2 pipe[0] precedent en entree
+		// open et ft_dup2 outfile en sortie
+	}
+	else
+	{
+		// close pipe[1] precedent
+		// open et ft_dup2 pipe[0] precedent en entree
+		// close pipe[0] suivant
+		// open et ft_dup2 pipe[1] suivant en sortie
+	}
+}
+
 int	looking_using(t_data *data, char **cmd, int i)
 {
 	char	*full_path;
-	pid_t	pid;
 	int		status;
 
-	pid = fork();
-	if (pid < 0)
+	data->pid[i-2] = fork();
+	if (data->pid[i-2] < 0)
 	{
 		ft_putendl_fd("Error forking", STDERR_FILENO), exit(1);
 		return (1);
 	}
-	else if (pid == 0)
+	else if (data->pid[i-2] == 0)
 	{
+		// open et dup2 ici
 		full_path = have_access(data, cmd[0]);
 		if (full_path == NULL)
 			return (path_not_found(cmd), 1);
 		execve(full_path, cmd, data->env);
 		ft_putendl_fd("Execve failed", STDERR_FILENO);
 		exit(1);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
-			return (1);
 	}
 	return (0);
 }
