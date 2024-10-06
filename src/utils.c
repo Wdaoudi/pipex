@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 20:04:34 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:09:59 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,16 @@ int	waiting(t_data *data)
 	}
 	free_end(data);
 	return (status);
+}
+
+void ft_close(int *fd, t_data *data)
+{
+	if (*fd == -1 || *fd == STDIN_FILENO || *fd == STDERR_FILENO || *fd == STDOUT_FILENO)
+		return;
+	if (close(*fd) == -1)
+	{
+		*fd = -1;
+		free_end(&data);
+	}
+	*fd = -1;
 }

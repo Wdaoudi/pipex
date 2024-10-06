@@ -6,22 +6,28 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 20:20:34 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:21:46 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	ft_dup2(int fd)
+int	ft_dup2(int *fd1, int fd2, t_data *data)
 {
-	//dup2(fd)
-	//close(fd)
+	if (dup2(*fd1,fd2) ==  -1)
+		free_end(&data);
+	ft_close(fd1,data);
 }
 
 int	redirect(t_data *data, int i)
 {
 	if (i == 2) // premiere cmd
 	{
+		// data->fd_in = open(data->av[1], O_RDONLY);
+		// if (data->fd_in == -1)
+		// 	error_opening(&data);
+		ft_dup2(&data->infile, STDIN_FILENO, data);
+		ft_dup2(&data->fd[1], STDOUT_FILENO, data);		
 		// open et ft_dup2 infile en entree
 		// close pipe[0] suivant
 		// open et ft_dup2 pipe[1] suivant en sortie
