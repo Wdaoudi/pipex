@@ -1,0 +1,9 @@
+a.out
+infile
+libft
+makefile
+outfile.txt
+pipex.h
+printf
+src
+test.c

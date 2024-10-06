@@ -6,14 +6,14 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 20:04:15 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:28:30 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 # include "./printf/ft_printf.h"
 # include <fcntl.h>
 # include <limits.h>
@@ -33,8 +33,9 @@ typedef struct s_data
 	int		cmd_count;
 	pid_t	*pid;
 	int		error;
-	int		fd_in;
-	int		fd_out;
+	int		fd[2];
+	int		infile;
+	int outfile;
 }			t_data;
 
 // pathing
@@ -58,5 +59,6 @@ void		path_not_found(char **cmd);
 void		free_array(char **arr);
 void		free_end(t_data *data);
 int			waiting(t_data *data);
+void ft_close(int *fd, t_data *data);
 
 #endif
