@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 20:03:55 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:58:38 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,25 @@
 
 int	main(int ac, char **av, char **env)
 {
-	char **path;
-	char **cmd;
-	t_data data;
-	int i;
+	char	**path;
+	char	**cmd;
+	t_data	data;
+	int		i;
+	int		status;
 
+	if (ac < 5)
+		return (0);
 	i = 2;
 	init_data(&data, ac, av, env);
-	if (data.error)
-		return (1);
 	while (i <= data.cmd_count)
 	{
 		cmd = parsing_cmd(data, i);
-		if (looking_using(&data, cmd, i)) // remplacer av[1] par les commandes
-			return (free(cmd), free_end(&data), 1);
+		if (looking_using(&data, cmd, i))
+			return (free_array(cmd), free_end(&data), 1);
 		free_array(cmd);
 		i++;
 	}
-	return (waiting(&data));
-	// waitpid(data.pid, &status, 0);
-	// if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
-	// 	return (1);
-	// free_end(&data);
-	// return (0);
+	status = waiting(&data);
+	free_end(&data);
+	return (status);
 }

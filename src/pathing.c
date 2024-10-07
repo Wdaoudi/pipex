@@ -6,16 +6,16 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/03 16:24:49 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:07:41 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-char	**find_path(t_data *data) // **env
+char	**find_path(t_data *data)
 {
-	char **paths;
-	char *path_var;
+	char	**paths;
+	char	*path_var;
 
 	path_var = get_path_var(data);
 	if (!path_var || path_var[0] == 0)
@@ -50,6 +50,7 @@ char	*add_slash(char *path)
 	free(path);
 	return (new_path);
 }
+
 char	**add_slash_to_paths(char **paths)
 {
 	int	i;

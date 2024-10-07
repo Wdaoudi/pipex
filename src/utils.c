@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/06 18:09:59 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:25:52 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,79 @@ void	free_end(t_data *data)
 {
 	if (data->path)
 		free_array(data->path);
-	if (data->fd_in != -1)
-		close(data->fd_in);
-	if (data->fd_out != -1)
-		close(data->fd_out);
-	// if (data->pid)
-	// 	free(data->pid);
+	if (data->pid)
+		free(data->pid);
+}
+
+void	ft_close(int *fd1, int *fd2, int *fd3, t_data *data)
+{
+	if (fd1 && *fd1 != -1 && *fd1 > 2)
+	{
+		if (close(*fd1) == -1)
+			perror("close");
+		*fd1 = -1;
+	}
+	if (fd2 && *fd2 != -1 && *fd2 > 2)
+	{
+		if (close(*fd2) == -1)
+			perror("close");
+		*fd2 = -1;
+	}
+	if (fd3 && *fd3 != -1 && *fd3 > 2)
+	{
+		if (close(*fd3) == -1)
+			perror("close");
+		*fd3 = -1;
+	}
+	(void)data;
+}
+
+int	ft_fd_first(int fd_first, t_data *data)
+{
+	error_opening(data);
+	fd_first = open("/dev/null", O_RDONLY);
+	if (fd_first == -1)
+	{
+		perror("open");
+		exit(1);
+	}
+	return (fd_first);
 }
 
 int	waiting(t_data *data)
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
+	int	last_status;
+
+	last_status = 0;
 	i = 0;
-	status = 0;
 	while (i < data->cmd_count)
 	{
-		waitpid(data->pid[i], &status, 0);
+		if (waitpid(data->pid[i], &status, 0) > 0)
+		{
+			if (WIFEXITED(status))
+				last_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				last_status = 128 + WTERMSIG(status);
+		}
 		i++;
 	}
-	free_end(data);
-	return (status);
+	return (last_status);
 }
 
-void ft_close(int *fd, t_data *data)
-{
-	if (*fd == -1 || *fd == STDIN_FILENO || *fd == STDERR_FILENO || *fd == STDOUT_FILENO)
-		return;
-	if (close(*fd) == -1)
-	{
-		*fd = -1;
-		free_end(&data);
-	}
-	*fd = -1;
-}
+/*
+WEXITSTATUS extrait le code
+ de sortie de l enfant
+
+ WIFEXITED(status) verifie si le processus
+  enfant termine normal
+
+WIFSIGNALED verifie si l enfant s est
+terminee a cause d un signal d interruption de maniere anormale
+
+WTERMSIG extrait le numero du signal qui a
+ cause la terminaison
+
++128 convention qui permet de distinguee les signal des codes de sortie normaux
+ */

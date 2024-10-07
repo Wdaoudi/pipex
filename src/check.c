@@ -6,68 +6,49 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/06 18:21:46 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:32:57 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	ft_dup2(int *fd1, int fd2, t_data *data)
+void	redirect(t_data *data, int i, char **cmd, int fd[])
 {
-	if (dup2(*fd1,fd2) ==  -1)
-		free_end(&data);
-	ft_close(fd1,data);
-}
-
-int	redirect(t_data *data, int i)
-{
-	if (i == 2) // premiere cmd
-	{
-		// data->fd_in = open(data->av[1], O_RDONLY);
-		// if (data->fd_in == -1)
-		// 	error_opening(&data);
-		ft_dup2(&data->infile, STDIN_FILENO, data);
-		ft_dup2(&data->fd[1], STDOUT_FILENO, data);		
-		// open et ft_dup2 infile en entree
-		// close pipe[0] suivant
-		// open et ft_dup2 pipe[1] suivant en sortie
-	}
-	else if (i == data->ac - 2) // derniere cmd
-	{
-		// close pipe[1] precedent
-		// open et ft_dup2 pipe[0] precedent en entree
-		// open et ft_dup2 outfile en sortie
-	}
+	if (i == 2)
+		ft_exec_first(data, cmd, fd);
+	else if (i == data->ac - 2)
+		ft_exec_last(data, cmd);
 	else
-	{
-		// close pipe[1] precedent
-		// open et ft_dup2 pipe[0] precedent en entree
-		// close pipe[0] suivant
-		// open et ft_dup2 pipe[1] suivant en sortie
-	}
+		ft_exec(data, cmd, fd);
 }
 
 int	looking_using(t_data *data, char **cmd, int i)
 {
-	char	*full_path;
-	int		status;
+	int	fd[2];
 
-	data->pid[i-2] = fork();
-	if (data->pid[i-2] < 0)
+	if (i < data->ac - 2)
+		if (pipe(fd) == -1)
+			return (ft_putendl_fd("Error creating pipe", STDERR_FILENO),
+				cleanup_child(data, cmd), 1);
+	data->pid[i - 2] = fork();
+	if (data->pid[i - 2] < 0)
+		return (ft_putendl_fd("Error forking", STDERR_FILENO),
+			cleanup_child(data, cmd), 1);
+	else if (data->pid[i - 2] == 0)
 	{
-		ft_putendl_fd("Error forking", STDERR_FILENO), exit(1);
-		return (1);
-	}
-	else if (data->pid[i-2] == 0)
-	{
-		// open et dup2 ici
-		full_path = have_access(data, cmd[0]);
-		if (full_path == NULL)
-			return (path_not_found(cmd), 1);
-		execve(full_path, cmd, data->env);
-		ft_putendl_fd("Execve failed", STDERR_FILENO);
+		redirect(data, i, cmd, fd);
+		cleanup_child(data,cmd);
 		exit(1);
 	}
+	if (data->prev_fd != -1)
+		close(data->prev_fd);
+	if (i < data->ac - 2)
+	{
+		close(fd[1]);
+		data->prev_fd = fd[0];
+	}
+	else
+		data->prev_fd = -1;
 	return (0);
 }
 
@@ -94,6 +75,7 @@ char	*have_access(t_data *data, char *cmd)
 	}
 	return (NULL);
 }
+
 void	path_not_found(char **cmd)
 {
 	ft_putstr_fd(cmd[0], STDERR_FILENO);

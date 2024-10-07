@@ -1,5 +1,5 @@
 SRC = src/pathing.c src/pipex.c src/check.c  src/utils.c \
-	src/parsing.c \
+	src/parsing.c  src/exec.c src/opening.c \
 
 NAME = pipex
 

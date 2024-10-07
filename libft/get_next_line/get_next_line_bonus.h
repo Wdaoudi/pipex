@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:01:59 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 15:16:11 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:08:27 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-#include "../libft.h"
+# include "../libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
