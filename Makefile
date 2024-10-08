@@ -11,8 +11,8 @@ LIBFT_DIR = libft
 SRC = $(SRC_DIR)/pathing.c $(SRC_DIR)/pipex.c $(SRC_DIR)/check.c $(SRC_DIR)/utils.c \
       $(SRC_DIR)/parsing.c $(SRC_DIR)/exec.c $(SRC_DIR)/opening.c
 
-SRC_BONUS = $(BONUS_DIR)/pathing.c $(BONUS_DIR)/pipex.c $(BONUS_DIR)/check.c $(BONUS_DIR)/utils.c \
-            $(BONUS_DIR)/parsing.c $(BONUS_DIR)/exec.c $(BONUS_DIR)/opening.c
+SRC_BONUS = $(BONUS_DIR)/pathingb.c $(BONUS_DIR)/pipexb.c $(BONUS_DIR)/checkb.c $(BONUS_DIR)/utilsb.c \
+            $(BONUS_DIR)/parsingb.c $(BONUS_DIR)/execb.c $(BONUS_DIR)/openingb.c
 
 # Object files
 OBJ = $(SRC:.c=.o)
