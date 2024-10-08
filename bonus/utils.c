@@ -6,11 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:37 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:17:27 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 void	free_array(char **arr)
 {

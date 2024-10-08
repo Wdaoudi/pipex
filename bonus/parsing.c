@@ -6,11 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:22:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:58:35 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:29:38 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	**parsing_cmd(t_data *data, int i)
 {
@@ -43,4 +43,9 @@ void	init_data(t_data *data, int ac, char **av, char **env)
 		data->pid[i] = -1;
 		i++;
 	}
+}
+
+void init_data2(t_data *data, bool is_here_doc)
+{
+	
 }

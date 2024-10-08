@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:33:42 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:14:25 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 	char	**cmd;
 	pid_t	*pid;
 	int		prev_fd;
+	bool 	is_here_doc;
 }			t_data;
 
 // pathing
@@ -72,5 +73,10 @@ void		free_array(char **arr);
 void		free_end(t_data *data);
 int			waiting(t_data *data);
 void		ft_close(int *fd1, int *fd2, int *fd3, t_data *data);
+
+// here_doc
+
+bool	ft_is_here_doc(bool is_here_doc, char **av, int ac);
+
 
 #endif

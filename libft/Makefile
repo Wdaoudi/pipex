@@ -6,7 +6,7 @@
 #    By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 20:49:13 by wdaoudi-          #+#    #+#              #
-#    Updated: 2024/09/23 16:35:28 by wdaoudi-         ###   ########.fr        #
+#    Updated: 2024/10/08 14:43:19 by wdaoudi-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJECTS_BONUS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJSB))
 
 CC = cc
 
-CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror -g3
 
 $(OBJS_DIR)%.o : %.c #libft.h get_next_line/get_next_line.h
 	@mkdir -p $(OBJS_DIR)

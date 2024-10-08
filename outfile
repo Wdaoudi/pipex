@@ -1,1 +1,15 @@
-9
+total 56
+drwxr-xr-x 7 wdaoudi- 2024_paris   197 Oct  8 16:04 .
+drwxr-xr-x 8 wdaoudi- 2024_paris   108 Oct  7 20:00 ..
+drwxr-xr-x 8 wdaoudi- 2024_paris   201 Oct  7 20:01 .git
+-rw-r--r-- 1 wdaoudi- 2024_paris    69 Oct  7 14:52 infile
+drwxr-xr-x 4 wdaoudi- 2024_paris  4096 Oct  8 16:04 libft
+-rw-r--r-- 1 wdaoudi- 2024_paris   628 Oct  8 14:46 Makefile
+-rwxr-xr-x 1 wdaoudi- 2024_paris     0 Oct  8 16:04 outfile
+-rw-r--r-- 1 wdaoudi- 2024_paris     3 Oct  8 15:55 outfile_sans_droit
+-r--r--r-- 1 wdaoudi- 2024_paris     0 Oct  7 18:12 outfile_sans_droits
+-rwxr-xr-x 1 wdaoudi- 2024_paris 34376 Oct  8 16:04 pipex
+-rw-r--r-- 1 wdaoudi- 2024_paris  2319 Oct  8 15:33 pipex.h
+drwxr-xr-x 2 wdaoudi- 2024_paris    91 Sep 30 13:59 printf
+drwxr-xr-x 2 wdaoudi- 2024_paris   226 Oct  8 16:04 src
+drwxr-xr-x 2 wdaoudi- 2024_paris    27 Oct  2 19:43 .vscode

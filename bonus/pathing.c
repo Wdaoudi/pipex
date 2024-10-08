@@ -6,11 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:59:04 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:17:18 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	**find_path(t_data *data)
 {

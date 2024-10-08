@@ -6,11 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:43:50 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:57:49 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:17:09 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 void	error_opening(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 18:03:58 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:29:59 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 // OBJECTIF gerer : ./pipex file1 cmd1 cmd2 file2
 
@@ -19,11 +19,15 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 	int		i;
 	int		status;
+	bool is_here_doc;
 
 	if (ac < 5)
 		return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
+	is_here_doc = ft_is_here_doc(is_here_doc,av,ac);
 	i = 2;
 	init_data(&data, ac, av, env);
+	init_data2(&data, is_here_doc);
+	data.is_here_doc = is_here_doc;
 	while (i <= data.cmd_count)
 	{
 		data.cmd = parsing_cmd(&data, i);
