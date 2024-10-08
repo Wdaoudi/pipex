@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:04:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 18:19:12 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:47:46 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ bool	ft_is_here_doc(bool is_here_doc, char **av, int ac)
 		is_here_doc = false;
 	return (is_here_doc);
 }
-
-int
