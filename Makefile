@@ -12,7 +12,7 @@ SRC = $(SRC_DIR)/pathing.c $(SRC_DIR)/pipex.c $(SRC_DIR)/check.c $(SRC_DIR)/util
       $(SRC_DIR)/parsing.c $(SRC_DIR)/exec.c $(SRC_DIR)/opening.c
 
 SRC_BONUS = $(BONUS_DIR)/pathingb.c $(BONUS_DIR)/pipexb.c $(BONUS_DIR)/checkb.c $(BONUS_DIR)/utilsb.c \
-            $(BONUS_DIR)/parsingb.c $(BONUS_DIR)/execb.c $(BONUS_DIR)/openingb.c
+            $(BONUS_DIR)/parsingb.c $(BONUS_DIR)/execb.c $(BONUS_DIR)/openingb.c $(BONUS_DIR)/here_docb.c \
 
 # Object files
 OBJ = $(SRC:.c=.o)
