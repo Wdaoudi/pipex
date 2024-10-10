@@ -6,77 +6,82 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:39 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 15:14:13 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:29:32 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-char	*ft_line(char *string)
+char	*ft_read_to_left_str(int fd, char *left_str)
 {
-	int		i;
-	char	*tmp;
+	char	*buff;
+	int		rd_bytes;
 
-	i = 0;
-	if (!string[i])
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
 		return (NULL);
-	while (string[i] && string[i] != '\n')
-		i++;
-	tmp = ft_substr_spe(string, 0, i + 1);
-	return (tmp);
-}
-
-char	*ft_save(char *string)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (string[i] && string[i] != '\n')
-		i++;
-	if (!string[i])
+	rd_bytes = 1;
+	while (!ft_strchr_spe(left_str, '\n') && rd_bytes != 0)
 	{
-		free(string);
-		return (NULL);
+		rd_bytes = read(fd, buff, BUFFER_SIZE);
+		if (rd_bytes == -1)
+		{
+			free(buff);
+			return (NULL);
+		}
+		buff[rd_bytes] = '\0';
+		left_str = ft_strjoin_spe(left_str, buff);
 	}
-	tmp = ft_substr_spe(string, i + 1, ft_strlen(string));
-	free(string);
-	return (tmp);
-}
-
-char	*ft_read_fd(int fd, char *string)
-{
-	char	*buffer;
-	int		res;
-
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
-	res = 1;
-	while (!ft_strchr(string, '\n') && res != 0)
-	{
-		res = read(fd, buffer, BUFFER_SIZE);
-		if (res == -1)
-			return (free(buffer), free(string), NULL);
-		buffer[res] = '\0';
-		string = ft_strjoin(string, buffer);
-	}
-	free(buffer);
-	return (string);
+	free(buff);
+	return (left_str);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*string;
+	static char	*left_str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	left_str = ft_read_to_left_str(fd, left_str);
+	if (!left_str)
 		return (NULL);
-	string = ft_read_fd(fd, string);
-	if (!string)
-		return (NULL);
-	line = ft_line(string);
-	string = ft_save(string);
+	line = ft_get_line(left_str);
+	left_str = ft_new_left_str(left_str);
 	return (line);
 }
+
+// int	main(void)
+// {
+// 	char *line;
+// 	// int		i;
+// 	int fd1;
+// 	// int		fd2;
+// 	// int		fd3;
+// 	fd1 = open("tests/test.txt", O_RDONLY);
+// 	// fd2 = open("tests/test2.txt", O_RDONLY);
+// 	// fd3 = open("tests/test3.txt", O_RDONLY);
+// 	// i = 1;
+// 	line = get_next_line(fd1);
+// 		// printf("line : %s", line);
+
+// 	while (line != NULL)
+// 	{
+
+// 		printf("line : %s", line);
+// 		free(line);
+// 		line = get_next_line(fd1);
+// 		// line = get_next_line(fd2);
+// 		// printf("line [%02d]: %s", i, line);
+// 		// free(line);
+// 		// line = get_next_line(fd3);
+// 		// printf("line [%02d]: %s", i, line);
+// 		// free(line);
+// 		// i++;
+// 	}
+// 	free(line);
+// 	close(fd1);
+// 	// close(fd2);
+// 	// close(fd3);
+// 	return (0);
+// }

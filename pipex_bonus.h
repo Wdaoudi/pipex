@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/09 15:37:02 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:06:36 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ typedef struct s_data
 	char	**path;
 	int		ac;
 	int		cmd_count;
-	int		cmd_start;
+	int		cmd_start; // point de depart modifier pour le cas de base
 	char	**cmd;
 	pid_t	*pid;
 	int		prev_fd;
-	bool	is_here_doc;
+	
+	int	is_here_doc;
+	char *limiter;
 	int		here_doc_fd;
 }			t_data;
 
@@ -83,7 +85,7 @@ void		ft_close(int *fd1, int *fd2, int *fd3, t_data *data);
 
 // here_doc
 
-bool		ft_is_here_doc(char **av);
+int			ft_is_here_doc(char **av, t_data *data);
 void		handle_here_doc(char *limiter, int *pipe_fd);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsingb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:22:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 18:29:38 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:14:34 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	init_data(t_data *data, int ac, char **av, char **env)
 	data->path = find_path(data);
 	if (!data->path)
 		return (cleanup_child(data));
-	data->cmd_count = ac - 2;
+	if (data->is_here_doc)
+		data->cmd_count = ac - 3;
+	else
+		data->cmd_count = ac - 2;
 	data->prev_fd = -1;
 	data->pid = malloc(sizeof(pid_t) * data->cmd_count);
 	if (!data->pid)
@@ -43,9 +46,4 @@ void	init_data(t_data *data, int ac, char **av, char **env)
 		data->pid[i] = -1;
 		i++;
 	}
-}
-
-void init_data2(t_data *data, bool is_here_doc)
-{
-	
 }
