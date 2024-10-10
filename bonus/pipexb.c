@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 15:50:01 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:52:36 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int ac, char **av, char **env)
 		i = 3;
 		if (ac < 6)
 			return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
+		
 	}
 	else
 	{
@@ -35,6 +36,7 @@ int	main(int ac, char **av, char **env)
 			return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
 	}
 	init_data(&data, ac, av, env);
+	handle_here_doc(&data);
 	while (i <= data.cmd_count)
 	{
 		data.cmd = parsing_cmd(&data, i);

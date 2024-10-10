@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 14:06:36 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:02:35 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void		ft_close(int *fd1, int *fd2, int *fd3, t_data *data);
 // here_doc
 
 int			ft_is_here_doc(char **av, t_data *data);
-void		handle_here_doc(char *limiter, int *pipe_fd);
+int		handle_here_doc(t_data *data);
 
 #endif

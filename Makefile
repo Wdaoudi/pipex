@@ -29,7 +29,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 INCLUDE = -I$(LIBFT_DIR) -I$(SRC_DIR)
 
 # Rules
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(NAME) $(NAME_BONUS)
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
@@ -53,6 +53,6 @@ fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME) $(NAME_BONUS)
 
-re: fclean all
+re: fclean all bonus
 
 .PHONY: all clean fclean re bonus
