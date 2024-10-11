@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:40:14 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 13:42:52 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:35:16 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ void	ft_exec_first(t_data *data, char **cmd, int *fd)
 	int		fd_first;
 	char	*full_path;
 
-	fd_first = open(data->av[1], O_RDONLY);
-	if (fd_first == -1)
-		fd_first = ft_fd_first(fd_first, data);
+	fd_first = -1;
+	if (data->is_here_doc)
+		fd_first = data->here_doc_fd;
+	else
+	{
+		fd_first = open(data->av[1], O_RDONLY);
+		if (fd_first == -1)
+			fd_first = ft_fd_first(fd_first, data);
+	}
 	if (dup2(fd_first, STDIN_FILENO) == -1)
-		(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	ft_close(&fd_first, &fd[0], &fd[1], data);
 	full_path = have_access(data, cmd[0]);
 	if (full_path == NULL)
@@ -44,7 +50,11 @@ void	ft_exec_last(t_data *data, char **cmd)
 	int		fd_last;
 	char	*full_path;
 
-	fd_last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (data->is_here_doc)
+		fd_last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_APPEND,
+				0644);
+	else
+		fd_last = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_last == -1)
 		ft_impossible(data);
 	if (dup2(data->prev_fd, STDIN_FILENO) == -1)

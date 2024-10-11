@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 19:02:35 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:17:01 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int		prev_fd;
 	
 	int	is_here_doc;
+	int decorless;
 	char *limiter;
 	int		here_doc_fd;
 }			t_data;
@@ -87,5 +88,8 @@ void		ft_close(int *fd1, int *fd2, int *fd3, t_data *data);
 
 int			ft_is_here_doc(char **av, t_data *data);
 int		handle_here_doc(t_data *data);
+char	*here_doc_on_first_exec(t_data *data, char **cmd, int *fd);
+
+
 
 #endif
