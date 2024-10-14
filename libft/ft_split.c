@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:58:36 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:00:04 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:50:12 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,28 +97,3 @@ char	**ft_split(char const *s, char c)
 		return (str);
 	return (sous_split(s, c, str));
 }
-
-// int	main(void)
-// {
-// 	char **result;
-// 	int i;
-
-// 	result = ft_split("          tripouille dfgfdg rgnor r        suh  oisefhis      b      ", 32);
-// 	if (result)
-// 	{
-// 		for (i = 0; result[i] != NULL; i++)
-// 		{
-// 			printf("result[%d]: %s\n", i, result[i]);
-// 		}
-// 		for (i = 0; result[i] != NULL; i++)
-// 		{
-// 			free(result[i]);
-// 		}
-// 		free(result);
-// 	}
-// 	else
-// 	{
-// 		printf("ft_split a retourné NULL\n");
-// 	}
-// 	return (0);
-// }

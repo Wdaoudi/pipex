@@ -1,41 +1,88 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipexb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 18:03:58 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:37:49 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 // OBJECTIF gerer : ./pipex file1 cmd1 cmd2 file2
+// OBJECTIF gerer : ./pipex here_doc limiter file1 cmd1 cmd2 file2
+
+int	check_arguments(int ac, char **av, t_data *data)
+{
+	if (ft_is_here_doc(av, data))
+	{
+		data->decorless = 3;
+		if (ac < 6)
+			return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
+	}
+	else
+	{
+		data->decorless = 2;
+		if (ac < 5)
+			return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
+	}
+	return (0);
+}
+
+int	setup_here_doc(t_data *data)
+{
+	if (data->is_here_doc)
+	{
+		data->here_doc_fd = handle_here_doc(data);
+		if (data->here_doc_fd == -1)
+			return (cleanup_child(data), 1);
+	}
+	return (0);
+}
+
+int	execute_commands(t_data *data)
+{
+	int	i;
+
+	i = data->decorless;
+	while (i - data->decorless < data->cmd_count)
+	{
+		data->cmd = parsing_cmd(data, i);
+		if (looking_using(data, data->cmd, i))
+			return (cleanup_child(data), 1);
+		free_array(data->cmd);
+		data->cmd = NULL;
+		i++;
+	}
+	return (0);
+}
+
+void	cleanup_and_wait(t_data *data, int *status)
+{
+	if (data->here_doc_fd >= 0)
+	{
+		close(data->here_doc_fd);
+		data->here_doc_fd = -1;
+	}
+	*status = waiting(data);
+	cleanup_child(data);
+}
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	int		i;
 	int		status;
 
-	if (ac < 5)
-		return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
-	i = 2;
+	if (check_arguments(ac, av, &data))
+		return (1);
 	init_data(&data, ac, av, env);
-	while (i <= data.cmd_count)
-	{
-		data.cmd = parsing_cmd(&data, i);
-		if (looking_using(&data, data.cmd, i))
-			return (cleanup_child(&data), 1);
-		free_array(data.cmd);
-		data.cmd = NULL;
-		i++;
-	}
-	if (data.prev_fd != -1)
-		close(data.prev_fd);
-	status = waiting(&data);
-	cleanup_child(&data);
+	if (setup_here_doc(&data))
+		return (1);
+	if (execute_commands(&data))
+		return (1);
+	cleanup_and_wait(&data, &status);
 	return (status);
 }

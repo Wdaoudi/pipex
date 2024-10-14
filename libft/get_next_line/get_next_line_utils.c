@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:29:01 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:49:30 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*ft_strjoin_spe(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen_spe(left_str) + ft_strlen_spe(buff)) + 1));
+	str = malloc(sizeof(char) * ((ft_strlen_spe(left_str) + ft_strlen_spe(buff))
+				+ 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;

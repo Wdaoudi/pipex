@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pathing.c                                          :+:      :+:    :+:   */
+/*   pathingb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:59:04 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:48:26 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	**find_path(t_data *data)
 {
@@ -22,7 +22,7 @@ char	**find_path(t_data *data)
 		return (NULL);
 	paths = ft_split(path_var, ':');
 	if (!paths)
-		return (cleanup_child(data),NULL);
+		return (cleanup_child(data), NULL);
 	return (add_slash_to_paths(paths));
 }
 

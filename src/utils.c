@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utilsb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:37 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:47:39 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 void	free_array(char **arr)
 {
@@ -60,16 +60,10 @@ void	ft_close(int *fd1, int *fd2, int *fd3, t_data *data)
 	(void)data;
 }
 
-int	ft_fd_first(int fd_first, t_data *data)
+int	ft_fd_first(t_data *data)
 {
 	error_opening(data);
-	fd_first = open("/dev/null", O_RDONLY);
-	if (fd_first == -1)
-	{
-		perror("open");
-		exit(1);
-	}
-	return (fd_first);
+	exit(1);
 }
 
 int	waiting(t_data *data)

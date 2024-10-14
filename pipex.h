@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/08 15:33:42 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:51:24 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char		**add_slash_to_paths(char **paths);
 void		init_data(t_data *data, int ac, char **av, char **env);
 void		opening_file(t_data *data);
 char		*have_access(t_data *data, char *cmd);
-char		**parsing_cmd(t_data *data, int i); 
+char		**parsing_cmd(t_data *data, int i);
 void		path_not_found(char **cmd);
 
 // exec
