@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 17:52:30 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:52:39 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_close(int *fd1, int *fd2, int *fd3, t_data *data)
 int	ft_fd_first(t_data *data)
 {
 	error_opening(data);
+	cleanup_child(data);
 	exit(1);
 }
 

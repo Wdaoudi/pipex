@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:18:23 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:38:50 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	execute_commands(t_data *data)
 
 void	cleanup_and_wait(t_data *data, int *status)
 {
-	if (data->here_doc_fd >= 0)
+	if (data->is_here_doc == 1 && data->here_doc_fd >= 0)
 	{
 		close(data->here_doc_fd);
 		data->here_doc_fd = -1;

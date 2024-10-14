@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:43:50 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 17:52:08 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:10:23 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	error_opening(t_data *data)
 {
-	ft_putstr_fd(data->av[1], STDERR_FILENO);
-	ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+	perror(data->av[1]);
 }
 
 void	cleanup_child(t_data *data)
@@ -31,7 +30,7 @@ void	cleanup_child(t_data *data)
 		close(data->prev_fd);
 		data->prev_fd = -1;
 	}
-	if (data->here_doc_fd >= 0)
+	if (data->is_here_doc == 1 && data->here_doc_fd >= 0)
 	{
 		close(data->here_doc_fd);
 		data->here_doc_fd = -1;

@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:13:19 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:15:28 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	redirect(t_data *data, int i, char **cmd, int fd[])
 	if (i == data->decorless)
 		ft_exec_first(data, cmd, fd);
 	else if (i == data->ac - 2)
+	{
+		close(fd[0]);
+		close(fd[1]);
 		ft_exec_last(data, cmd);
+	}
 	else
 		ft_exec(data, cmd, fd);
 }
@@ -83,11 +87,10 @@ char	*have_access(t_data *data, char *cmd)
 
 void	path_not_found(char **cmd)
 {
+	ft_putstr_fd("pipex: ", STDERR_FILENO);
 	if (cmd && cmd[0])
-	{
 		ft_putstr_fd(cmd[0], STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-	}
 	else
-		ft_putendl_fd("empty command", STDERR_FILENO);
+		ft_putstr_fd("", STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 }

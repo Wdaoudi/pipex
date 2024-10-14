@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:40:14 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:14:11 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:07:36 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exec_first(t_data *data, char **cmd, int *fd)
 	{
 		fd_first = open(data->av[1], O_RDONLY);
 		if (fd_first == -1)
-			fd_first = ft_fd_first(data);
+			(ft_close(&fd_first, &fd[0], &fd[1], data), ft_fd_first(data));
 	}
 	if (dup2(fd_first, STDIN_FILENO) == -1)
 		exit(EXIT_FAILURE);
@@ -93,8 +93,7 @@ void	ft_impossible(t_data *data)
 {
 	ft_putstr_fd("pipex: ", STDERR_FILENO);
 	ft_putstr_fd(data->av[data->ac - 1], STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	perror("");
 	cleanup_child(data);
 	exit(1);
 }
