@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipexb.c                                           :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 14:37:49 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:18:23 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex_bonus.h"
+#include "../pipex.h"
 
 // OBJECTIF gerer : ./pipex file1 cmd1 cmd2 file2
 // OBJECTIF gerer : ./pipex here_doc limiter file1 cmd1 cmd2 file2
 
 int	check_arguments(int ac, char **av, t_data *data)
 {
+	if (ac < 5)
+		return (ft_putendl_fd("Error: Not enough arguments", 2), 1);
 	if (ft_is_here_doc(av, data))
 	{
 		data->decorless = 3;

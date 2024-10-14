@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execb.c                                            :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:40:14 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 13:43:03 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:14:11 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex_bonus.h"
+#include "../pipex.h"
 
 void	ft_exec_first(t_data *data, char **cmd, int *fd)
 {
@@ -35,9 +35,9 @@ void	ft_exec_first(t_data *data, char **cmd, int *fd)
 	if (full_path == NULL)
 		sub_exec(data, cmd);
 	execve(full_path, cmd, data->env);
+	perror("execve");
 	free(full_path);
 	cleanup_child(data);
-	ft_putendl_fd("Execve failed", STDERR_FILENO);
 	exit(1);
 }
 
