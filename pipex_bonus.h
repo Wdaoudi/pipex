@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/11 14:17:01 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:05:21 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ typedef struct s_data
 	char	**path;
 	int		ac;
 	int		cmd_count;
-	int		cmd_start; // point de depart modifier pour le cas de base
+	int cmd_start; // point de depart modifier pour le cas de base
 	char	**cmd;
 	pid_t	*pid;
 	int		prev_fd;
-	
-	int	is_here_doc;
-	int decorless;
-	char *limiter;
+
+	int		is_here_doc;
+	int		decorless;
+	char	*limiter;
 	int		here_doc_fd;
 }			t_data;
 
@@ -65,6 +65,7 @@ void		path_not_found(char **cmd);
 
 // exec
 int			looking_using(t_data *data, char **cmd, int i);
+void		sub_looking(int fd[], t_data *data);
 void		redirect(t_data *data, int i, char **cmd, int fd[]);
 void		ft_exec_first(t_data *data, char **cmd, int fd[]);
 void		ft_exec_last(t_data *data, char **cmd);
@@ -73,7 +74,7 @@ void		ft_exec(t_data *data, char **cmd, int fd[]);
 // errror
 
 void		error_opening(t_data *data);
-int			ft_fd_first(int fd_first, t_data *data);
+int			ft_fd_first(t_data *data);
 void		ft_impossible(t_data *data);
 
 // utils
@@ -84,12 +85,18 @@ void		free_end(t_data *data);
 int			waiting(t_data *data);
 void		ft_close(int *fd1, int *fd2, int *fd3, t_data *data);
 
+// reduction du main
+
+int	check_arguments(int ac, char **av, t_data *data);
+int	setup_here_doc(t_data *data);
+int	execute_commands(t_data *data);
+void	cleanup_and_wait(t_data *data, int *status);
+
 // here_doc
 
 int			ft_is_here_doc(char **av, t_data *data);
-int		handle_here_doc(t_data *data);
-char	*here_doc_on_first_exec(t_data *data, char **cmd, int *fd);
-
-
+int			handle_here_doc(t_data *data);
+void	process_here_doc_input(t_data *data, int pipe_fd[2]);
+char		*here_doc_on_first_exec(t_data *data, char **cmd, int *fd);
 
 #endif

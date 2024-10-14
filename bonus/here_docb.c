@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:44:19 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/11 18:36:05 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:41:35 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,59 @@ int	ft_is_here_doc(char **av, t_data *data)
 	}
 	return (data->is_here_doc);
 }
+// int	handle_here_doc(t_data *data)
+// {
+// 	char	*line;
+// 	int		pipe_fd[2];
+// 	int		continue_reading;
+
+// 	if (pipe(pipe_fd) == -1)
+// 		return (perror("pipe"), -1);
+// 	continue_reading = 1;
+// 	while (continue_reading)
+// 	{
+// 		ft_putstr_fd(">", STDOUT_FILENO);
+// 		line = get_next_line(STDIN_FILENO);
+// 		if (!line)
+// 			continue_reading = 0;
+// 		else if (ft_strncmp(line, data->limiter, ft_strlen(data->limiter)) == 0
+// 			&& line[ft_strlen(data->limiter)] == '\n')
+// 		{
+// 			free(line);
+// 			continue_reading = 0;
+// 		}
+// 		else
+// 		{
+// 			ft_putstr_fd(line, pipe_fd[1]);
+// 			free(line);
+// 		}
+// 	}
+// 	close(pipe_fd[1]);
+// 	if (pipe_fd[0] == -1)
+// 		return (perror("Error with here_doc pipe"), -1);
+// 	data->here_doc_fd = pipe_fd[0];
+// 	return (pipe_fd[0]);
+// }
+
 int	handle_here_doc(t_data *data)
 {
-	char	*line;
-	int		pipe_fd[2];
-	int		continue_reading;
+	int	pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
 		return (perror("pipe"), -1);
+	process_here_doc_input(data, pipe_fd);
+	close(pipe_fd[1]);
+	if (pipe_fd[0] == -1)
+		return (perror("Error with here_doc pipe"), -1);
+	data->here_doc_fd = pipe_fd[0];
+	return (pipe_fd[0]);
+}
+
+void	process_here_doc_input(t_data *data, int pipe_fd[2])
+{
+	char	*line;
+	int		continue_reading;
+
 	continue_reading = 1;
 	while (continue_reading)
 	{
@@ -38,7 +83,7 @@ int	handle_here_doc(t_data *data)
 		if (!line)
 			continue_reading = 0;
 		else if (ft_strncmp(line, data->limiter, ft_strlen(data->limiter)) == 0
-			&& line[ft_strlen(data->limiter)] == '\n')
+				&& line[ft_strlen(data->limiter)] == '\n')
 		{
 			free(line);
 			continue_reading = 0;
@@ -46,38 +91,7 @@ int	handle_here_doc(t_data *data)
 		else
 		{
 			ft_putstr_fd(line, pipe_fd[1]);
-			// ft_putstr_fd("\n", pipe_fd[1]);
 			free(line);
 		}
 	}
-	free(line);
-	close(pipe_fd[1]);
-	if (pipe_fd[0] == -1)
-		return (perror("Error with here_doc pipe"), -1);
-	data->here_doc_fd = pipe_fd[0];
-	return (pipe_fd[0]);
 }
-// char	*here_doc_on_first_exec(t_data *data, char **cmd, int *fd)
-// {
-// 	char *full_path;
-// 	int fd_first;
-
-// 	fd_first = data->here_doc_fd;
-// 	if (fd_first == -1)
-// 		fd_first = ft_fd_first(fd_first, data);
-// 	// if (dup2(fd_first, STDIN_FILENO) == -1)
-// 	// 	(EXIT_FAILURE);
-// 	if (dup2(fd_first, STDIN_FILENO) == -1)
-// 		(EXIT_FAILURE);
-// 	if (dup2(fd[1], STDOUT_FILENO) == -1)
-// 		(EXIT_FAILURE);
-// 	ft_close(&fd_first, &fd[0], &fd[1], data);
-// 	full_path = have_access(data, cmd[0]);
-// 	if (full_path == NULL)
-// 	{
-// 		path_not_found(cmd);
-// 		cleanup_child(data);
-// 		exit(127);
-// 	}
-// 	return (full_path);
-// }

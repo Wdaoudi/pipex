@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:20:58 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/11 15:30:20 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:07:35 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,17 @@ void	ft_close(int *fd1, int *fd2, int *fd3, t_data *data)
 	(void)data;
 }
 
-int	ft_fd_first(int fd_first, t_data *data)
+int	ft_fd_first(t_data *data)
 {
 	error_opening(data);
-	fd_first = open("/dev/null", O_RDONLY);
-	if (fd_first == -1)
-	{
-		perror("open");
-		exit(1);
-	}
-	return (fd_first);
+	// fd_first = open("/dev/null", O_RDONLY);
+	// if (fd_first == -1)
+	// {
+	// 	perror("open");
+	// 	exit(1);
+	// }
+	// return (fd_first);
+	exit(1);
 }
 
 int	waiting(t_data *data)

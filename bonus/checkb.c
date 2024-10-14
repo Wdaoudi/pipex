@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/11 18:34:45 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:33:43 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ int	looking_using(t_data *data, char **cmd, int i)
 		data->prev_fd = -1;
 	}
 	if (i- data->decorless < data->cmd_count)
-	{
-		close(fd[1]);
-		data->prev_fd = fd[0];
-	}
+		sub_looking(fd,data);
 	else
 		data->prev_fd = -1;
 	return (0);
 }
+void 	sub_looking(int fd[],t_data *data)
+{
+close(fd[1]);
+		data->prev_fd = fd[0];
+}
+
 
 char	*have_access(t_data *data, char *cmd)
 {
