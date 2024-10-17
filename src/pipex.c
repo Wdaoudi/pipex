@@ -6,14 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:38:50 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:28:15 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-
-// OBJECTIF gerer : ./pipex file1 cmd1 cmd2 file2
-// OBJECTIF gerer : ./pipex here_doc limiter file1 cmd1 cmd2 file2
 
 int	check_arguments(int ac, char **av, t_data *data)
 {

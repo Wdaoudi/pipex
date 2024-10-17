@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 17:52:17 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:54:28 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ char	**find_path(t_data *data)
 
 	path_var = get_path_var(data);
 	if (!path_var || path_var[0] == 0)
+	{
 		return (NULL);
+	}
 	paths = ft_split(path_var, ':');
 	if (!paths)
 		return (cleanup_child(data), NULL);
@@ -69,4 +71,33 @@ char	**add_slash_to_paths(char **paths)
 		i++;
 	}
 	return (paths);
+}
+
+void	handle_env_i(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->path = malloc(sizeof(char *) * data->cmd_count + 1);
+	if (!data->path)
+	{
+		perror("malloc");
+		cleanup_child(data);
+		exit(1);
+	}
+	while (i < data->cmd_count)
+	{
+		data->path[i] = ft_strdup(data->av[data->decorless]);
+		if (!data->path[i])
+		{
+			perror("ft_strdup");
+			free_array(data->path);
+			cleanup_child(data);
+			exit(1);
+		}
+		i++;
+		data->decorless++;
+	}
+	data->path[i] = NULL;
+	re_init_after_handle(data);
 }

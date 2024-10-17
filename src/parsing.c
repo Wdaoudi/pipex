@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:22:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 17:52:13 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:56:41 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,12 @@ void	init_data(t_data *data, int ac, char **av, char **env)
 
 	i = 0;
 	sub_init(data, av, env, ac);
-	data->path = find_path(data);
+	if (data->env == NULL || data->env[0] == NULL)
+		handle_env_i(data);
+	else
+		data->path = find_path(data);
 	if (!data->path)
 		return (cleanup_child(data));
-	if (data->is_here_doc)
-	{
-		data->cmd_count = ac - 4;
-		data->decorless = 3;
-	}
-	else
-	{
-		data->cmd_count = ac - 3;
-		data->decorless = 2;
-	}
 	data->pid = malloc(sizeof(pid_t) * data->cmd_count);
 	if (!data->pid)
 		return (cleanup_child(data));
@@ -65,4 +58,14 @@ void	sub_init(t_data *data, char **av, char **env, int ac)
 	data->ac = ac;
 	data->prev_fd = -1;
 	data->cmd = NULL;
+	if (data->is_here_doc)
+	{
+		data->cmd_count = ac - 4;
+		data->decorless = 3;
+	}
+	else
+	{
+		data->cmd_count = ac - 3;
+		data->decorless = 2;
+	}
 }

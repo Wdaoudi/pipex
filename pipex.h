@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:57:51 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:06:00 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:54:52 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char		**find_path(t_data *data);
 char		*get_path_var(t_data *data);
 char		*add_slash(char *path);
 char		**add_slash_to_paths(char **paths);
+void		handle_env_i(t_data *data);
+void	re_init_after_handle(t_data *data);
 
 // parsing + check
 
