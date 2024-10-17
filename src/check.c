@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 20:15:28 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:48:43 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,13 @@ char	*have_access(t_data *data, char *cmd)
 	i = 0;
 	if (!cmd || cmd[0] == '\0')
 		return (NULL);
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
-	while (data->path[i])
+	if (ft_strchr(cmd, '/') != NULL)
+	{
+		if (access(cmd, F_OK | X_OK) == 0)
+			return (cmd);
+		return (NULL);
+	}
+	while (data->path && data->path[i])
 	{
 		full_path = ft_strjoin(data->path[i], cmd);
 		if (!full_path)

@@ -6,26 +6,35 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 18:54:28 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:33:24 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-char	**find_path(t_data *data)
+int find_path(t_data *data)
 {
 	char	**paths;
 	char	*path_var;
 
+	if (data->env == NULL || data->env[0] == NULL)
+	{
+		data->path = NULL;
+		return (1);
+	}
 	path_var = get_path_var(data);
 	if (!path_var || path_var[0] == 0)
 	{
-		return (NULL);
+		data->path = NULL;
+		return (1);
 	}
 	paths = ft_split(path_var, ':');
 	if (!paths)
-		return (cleanup_child(data), NULL);
-	return (add_slash_to_paths(paths));
+		return (0);
+	data->path = add_slash_to_paths(paths);
+	if (!data->path)
+		return (0);
+	return (1);
 }
 
 char	*get_path_var(t_data *data)
