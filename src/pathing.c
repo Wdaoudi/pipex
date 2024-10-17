@@ -6,13 +6,13 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:58:38 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 19:33:24 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:04:10 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int find_path(t_data *data)
+int	find_path(t_data *data)
 {
 	char	**paths;
 	char	*path_var;
