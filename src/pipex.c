@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:28 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 16:28:15 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:03:13 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	execute_commands(t_data *data)
 		data->cmd = parsing_cmd(data, i);
 		if (looking_using(data, data->cmd, i))
 			return (cleanup_child(data), 1);
-		free_array(data->cmd);
+		if (data->cmd)
+			free_array(data->cmd);
 		data->cmd = NULL;
 		i++;
 	}
@@ -75,6 +76,7 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 	int		status;
 
+	ft_memset(&data, 0, sizeof(data));
 	if (check_arguments(ac, av, &data))
 		return (1);
 	init_data(&data, ac, av, env);

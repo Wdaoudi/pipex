@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 20:02:55 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:18:01 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ void	path_not_found(char **cmd)
 		ft_putstr_fd(cmd[0], STDERR_FILENO);
 	else
 		ft_putstr_fd("", STDERR_FILENO);
-	ft_putendl_fd(": command not found", STDERR_FILENO);
+	ft_putendl_fd("command not found", STDERR_FILENO);
 }
