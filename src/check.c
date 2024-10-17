@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 19:48:43 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:02:55 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ char	*have_access(t_data *data, char *cmd)
 	{
 		full_path = ft_strjoin(data->path[i], cmd);
 		if (!full_path)
-		{
-			ft_putstr_fd("Error: Memory allocation failed\n", STDERR_FILENO);
-			return (NULL);
-		}
+			return (ft_putstr_fd("Error: Memory allocation failed\n",
+					STDERR_FILENO), NULL);
 		if (access(full_path, F_OK | X_OK) == 0)
 			return (full_path);
 		free(full_path);
