@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:53:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 21:18:01 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:14:50 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ int	looking_using(t_data *data, char **cmd, int i)
 	return (0);
 }
 
-void	sub_looking(int fd[], t_data *data)
-{
-	close(fd[1]);
-	data->prev_fd = fd[0];
-}
-
 char	*have_access(t_data *data, char *cmd)
 {
 	char	*full_path;
@@ -87,12 +81,48 @@ char	*have_access(t_data *data, char *cmd)
 	return (NULL);
 }
 
+static char	*build_error_msg(char **cmd)
+{
+	char	*error_msg;
+	char	*cmd_str;
+	char	*temp;
+
+	if (cmd && cmd[0])
+		cmd_str = ft_strdup(cmd[0]);
+	else
+		cmd_str = ft_strdup("");
+	if (!cmd_str)
+		return (NULL);
+	error_msg = ft_strjoin("pipex: ", cmd_str);
+	free(cmd_str);
+	if (!error_msg)
+		return (NULL);
+	temp = error_msg;
+	error_msg = ft_strjoin(error_msg, ": command not found\n");
+	free(temp);
+	return (error_msg);
+}
+
 void	path_not_found(char **cmd)
 {
-	ft_putstr_fd("pipex: ", STDERR_FILENO);
-	if (cmd && cmd[0])
-		ft_putstr_fd(cmd[0], STDERR_FILENO);
-	else
-		ft_putstr_fd("", STDERR_FILENO);
-	ft_putendl_fd("command not found", STDERR_FILENO);
+	char	*error_msg;
+
+	error_msg = build_error_msg(cmd);
+	if (!error_msg)
+	{
+		ft_putstr_fd("Error: Memory allocation failed\n", STDERR_FILENO);
+		return ;
+	}
+	ft_putstr_fd(error_msg, STDERR_FILENO);
+	free(error_msg);
 }
+
+// void	path_not_found(char **cmd)
+// {
+// 	ft_putstr_fd("pipex: ", STDERR_FILENO);
+// 	if (cmd && cmd[0])
+// 		ft_putstr_fd(cmd[0], STDERR_FILENO);
+// 	else
+// 		ft_putstr_fd("", STDERR_FILENO);
+// 	ft_putendl_fd("command not found", STDERR_FILENO);
+// }

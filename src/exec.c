@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:40:14 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 21:13:28 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:16:33 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_exec_first(t_data *data, char **cmd, int *fd)
 	if (full_path == NULL)
 		sub_exec(data, cmd);
 	execve(full_path, cmd, data->env);
-	// perror(full_path);
 	ft_putendl_fd("Execve failed", STDERR_FILENO);
 	free(full_path);
 	cleanup_child(data);
@@ -92,8 +91,6 @@ void	ft_exec(t_data *data, char **cmd, int fd[])
 
 void	ft_impossible(t_data *data)
 {
-	// ft_putstr_fd("pipex: ", STDERR_FILENO);
-	// ft_putstr_fd(data->av[data->ac - 1], STDERR_FILENO);
 	perror(data->av[data->ac - 1]);
 	cleanup_child(data);
 	exit(1);

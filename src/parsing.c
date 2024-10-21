@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:22:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 19:36:40 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:16:43 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,10 @@ void	sub_init(t_data *data, char **av, char **env, int ac)
 		data->cmd_count = ac - 3;
 		data->decorless = 2;
 	}
+}
+
+void	sub_looking(int fd[], t_data *data)
+{
+	close(fd[1]);
+	data->prev_fd = fd[0];
 }
